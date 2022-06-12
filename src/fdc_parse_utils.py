@@ -32,5 +32,5 @@ def parse_search_result(result):
     return Page(parse_foods_abridged(result['foods']), result['currentPage'], result['totalPages'])
 
 
-def parse_get_results(foods, amounts):
-    return Meal({parse_food(food): amount for food, amount in zip(foods, amounts)})
+def parse_get_results(foods, amounts, name):
+    return Meal({parse_food(food): amount for food, amount in zip(foods, amounts)}, name)
