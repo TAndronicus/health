@@ -8,4 +8,4 @@ class Meal:
             foods_str = 'empty'
         else:
             foods_str = '\n'.join([f'{amount}g of {str(food)}' for food, amount in self.foods.items()])
-        return f'Meal: {self.name}. Foods:\n{foods_str}'
+        return f'Meal: {self.name}. Ingredients:\n{foods_str}'
