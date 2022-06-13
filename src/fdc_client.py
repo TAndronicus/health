@@ -7,6 +7,9 @@ from objects.diet import Diet
 
 
 class FdcClient:
+    # https://fdc.nal.usda.gov/api-guide.html
+    # https://fdc.nal.usda.gov/help.html#bkmk-2
+    # https://fdc.nal.usda.gov/api-spec/fdc_api.html#/
     url = 'https://api.nal.usda.gov/fdc/v1'
 
     def __init__(self, api_key):
@@ -23,6 +26,9 @@ class FdcClient:
             pageNumber=pageNumber
         )
         return parse_search_result(self.call(params, '/foods/search'))
+
+    def get_food(self, id):
+        return self.call({}, f'/food/{id}')
 
     def get_foods(self, id_amount_dict, name='Default'):
         params = dict(
