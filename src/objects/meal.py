@@ -7,5 +7,5 @@ class Meal:
         if len(self.foods) == 0:
             foods_str = 'empty'
         else:
-            foods_str = '\n'.join([f'{amount}g of {str(food)}' for food, amount in self.foods.items()])
-        return f'Meal: {self.name}. Ingredients:\n{foods_str}'
+            foods_str = '\n'.join([f'- {amount}g of {str(food)}' for food, amount in self.foods.items()])
+        return f'Meal: {self.name}.\nIngredients:\n{foods_str}'

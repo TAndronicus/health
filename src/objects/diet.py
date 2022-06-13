@@ -17,6 +17,6 @@ class Diet:
         return nutrients
 
     def print_nutrients(self):
-        print('Nutrients:\n')
+        print('Nutrients:')
         for nutrient, amount in self.get_nutrients().items():
             print(f'{nutrient.name} - {round(amount, 2)}{nutrient.unit}')
