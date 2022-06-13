@@ -16,7 +16,7 @@ class Foods:
     # Sweets
     SUGAR = 1103933
     LOTUS = 1984148
-    LADY_FINGERS = 2008520
+    LADY_FINGERS = 2186530
 
 
 class Amounts:
