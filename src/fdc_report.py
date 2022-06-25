@@ -1,10 +1,11 @@
 from constants.fdc_constants import Meals
 from fdc_client import FdcClient
 
-API_KEY = 'KV2tU1GXpctVLUhg9btY30W2XGnqu5QGPFSeq8AL'
+API_KEY = open("key.txt", "r").read()
 
 meals = [
-    Meals.DUMPLINGS_NO_FILLING
+    Meals.OATMEAL,
+    Meals.DOSA
 ]
 client = FdcClient(API_KEY)
 diet = client.get_meals(meals)
