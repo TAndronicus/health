@@ -1,20 +1,25 @@
 class Foods:
     # Carbs
-    SUNFLOWER_BREAD = 1100825
-    OATS = 1101825
-    SEMOLINA = 168933
+    BREAD_MULTIGRAIN = 168013
+    BREAD_RYE = 172684
+    BREAD_SUNFLOWER = 1100825
+    BREAD_WHEAT = 172686  # No aminoacids
     FLOUR_WHEAT = 168896
-    # Diary
-    EGG = 748967
-    MILK = 1097512
-    DRY_COTTAGE_CHEESE = 1098046
+    OATS = 173904
+    SEMOLINA = 168933
+    # Diary and equivalents
+    COTTAGE_CHEESE_DRY = 172182
     CREAM_FATTY = 1097888
+    EGG = 748967
+    MILK = 172217
+    TOFU = 172461
     # Vegetables
-    LENTIL_RED = 174284
-    POTATO = 1102882
-    MUSHROOM_BUTTON = 1999629
-    ONION = 1103364
+    ASPARAGUS = 168389
     GARLIC = 1103354
+    LENTIL_RED = 174284
+    MUSHROOM_BUTTON = 366857
+    ONION = 1103364
+    POTATO = 170026
     # Fruits
     STRAWBERRIES_FROZEN = 1102712
     # Herbs
@@ -26,13 +31,14 @@ class Foods:
     # Fats
     BUTTER = 1103823
     CANOLA_OIL = 172336
-    FLAX_OIL = 2058238
+    FLAX_OIL = 1103860
+    SUNFLOWER_OIL = 171025
     # Sweets
-    SUGAR = 1103933
-    XYLITOL = 2294277
     CHOCOLATE_DARK = 170272
-    LOTUS = 1984148
-    LADY_FINGERS = 2186530
+    LADY_FINGERS = 172821
+    LOTUS = 367950
+    SUGAR = 1103933
+    XYLITOL = 392084
 
 
 class Amounts:
@@ -46,8 +52,8 @@ class Amounts:
 class Meals:
     BREAD_WITH_CHEESE_AND_FLAX_OIL = {
         'Bread with cheese and flax oil': {
-            Foods.SUNFLOWER_BREAD: 100,
-            Foods.DRY_COTTAGE_CHEESE: 50,
+            Foods.BREAD_SUNFLOWER: 100,
+            Foods.COTTAGE_CHEESE_DRY: 50,
             Foods.CHIVES: 20,
             Foods.FLAX_OIL: 10
         }
@@ -64,7 +70,7 @@ class Meals:
     }
     DUMPLINGS_NO_FILLING = {
         'Dumplings, no filling': {
-            Foods.DRY_COTTAGE_CHEESE: 125,
+            Foods.COTTAGE_CHEESE_DRY: 125,
             Foods.FLOUR_WHEAT: Amounts.TABLESPOON,
             Foods.EGG: .5 * Amounts.EGG_S,
             Foods.BUTTER: .5 * Amounts.TABLESPOON,
@@ -95,5 +101,14 @@ class Meals:
             Foods.LOVAGE: .5 * Amounts.TEASPOON,
             Foods.CANOLA_OIL: 1.5 * Amounts.TABLESPOON,
             Foods.CURRY: .5 * Amounts.TEASPOON
+        }
+    }
+    OMELET = {
+        'Omelet': {
+            Foods.ASPARAGUS: 25,
+            Foods.EGG: Amounts.EGG_L,
+            Foods.TOFU: 40,
+            Foods.BUTTER: .5 * Amounts.TEASPOON,
+            Foods.SUNFLOWER_OIL: Amounts.TEASPOON
         }
     }

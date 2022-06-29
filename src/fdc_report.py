@@ -1,14 +1,11 @@
 from constants.fdc_constants import Meals
-from fdc_client import FdcClient
-
-API_KEY = open("key.txt", "r").read()
+from fdc_repo import get_meals
 
 meals = [
     Meals.OATMEAL,
     Meals.DOSA
 ]
-client = FdcClient(API_KEY)
-diet = client.get_meals(meals)
+diet = get_meals(meals)
 print(diet)
 print()
 diet.print_nutrients()
