@@ -6,6 +6,8 @@ from objects.meal import Meal
 from objects.nutritient import Nutrient
 from objects.page import Page
 
+# Source: https://www.kaggle.com/datasets/stoicstatic/fooddata-central-nutrition-and-component-data
+
 PAGE_SIZE = 50
 
 FOOD_CSV = 'data/food.csv'
