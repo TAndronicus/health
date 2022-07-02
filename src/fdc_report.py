@@ -1,5 +1,5 @@
 from constants.fdc_constants import Meals
-from fdc_repo import get_meals, get_food
+from fdc_repo import get_meals, get_food, search_foods, Source
 
 meals = [
     Meals.OMELET
@@ -20,7 +20,7 @@ def print_food(food_id):
     food.print_nutrients()
 
 
-# print(search_foods('potato', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=2))
+print(search_foods('raisins', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=1))
 # get_food(172461).print_nutrients()
 # print_meals(meals)
-print_food(170026)  # 173417
+print_food(168165)
