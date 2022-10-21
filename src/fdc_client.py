@@ -2,8 +2,8 @@ import json
 
 import requests
 
+from domain.diet import Diet
 from fdc_parse_utils import parse_search_result, parse_get_results
-from objects.diet import Diet
 
 
 class FdcClient:

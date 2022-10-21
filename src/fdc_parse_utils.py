@@ -1,7 +1,7 @@
-from objects.food import Food, AbridgedFood
-from objects.meal import Meal
-from objects.nutritient import Nutrient
-from objects.page import Page
+from domain.food import Food, AbridgedFood
+from domain.meal import Meal
+from domain.nutritient import Nutrient
+from domain.page import Page
 
 
 def parse_nutrient(food_nutrient):

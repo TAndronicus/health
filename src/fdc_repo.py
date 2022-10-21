@@ -1,10 +1,10 @@
 import csv
 
-from objects.diet import Diet
-from objects.food import AbridgedFood, Food
-from objects.meal import Meal
-from objects.nutritient import Nutrient
-from objects.page import Page
+from domain.diet import Diet
+from domain.food import AbridgedFood, Food
+from domain.meal import Meal
+from domain.nutritient import Nutrient
+from domain.page import Page
 
 # Source: https://www.kaggle.com/datasets/stoicstatic/fooddata-central-nutrition-and-component-data
 
