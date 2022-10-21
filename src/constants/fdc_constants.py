@@ -7,6 +7,7 @@ class Foods:
     BREAD_WHEAT = 172686  # No aminoacids
     BUCKWHEAT = 170685
     FLOUR_CORN = 169696
+    FLOUR_POTATO = 168446
     FLOUR_SOY = 174273
     FLOUR_WHEAT = 168896
     MILLET = 169702
@@ -97,6 +98,10 @@ class Foods:
     LOTUS = 367950
     SUGAR = 1103933
     XYLITOL = 392084
+    # Other
+    TOMATO_CANNED = 170051
+    TOMATO_SAUCE = 170054
+    YEAST = 167717
 
 
 class Amounts:
