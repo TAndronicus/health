@@ -20,3 +20,12 @@ class Diet:
         print('Nutrients:')
         for nutrient, amount in sorted(self.get_nutrients().items()):
             print(f'{nutrient.name} - {round(amount, 2)} {nutrient.unit}')
+
+    def calculate_omega_3_omega_6(self):
+        omega_3, omega_6 = 0, 0
+        for nutrient, amount in self.get_nutrients().items():
+            if ' n-3' in nutrient.name:
+                omega_3 += amount
+            elif ' n-6' in nutrient.name:
+                omega_6 += amount
+        return [omega_3, omega_6]
