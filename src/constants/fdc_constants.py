@@ -25,6 +25,7 @@ class Foods:
     COTTAGE_CHEESE_DRY = 172182
     CREAM_FATTY = 1097888
     EGG = 748967
+    KEFIR = 170904
     MILK = 172217
     TOFU = 172461
     YOGURT = 171284
@@ -110,6 +111,7 @@ class Foods:
 PROBIOTICS = {
     Foods.BUTTERMILK,
     Foods.CUCUMBER_DILL_PICKLED,
+    Foods.KEFIR,
     Foods.KIMCHI,
     Foods.SAUERKRAUT,
     Foods.YOGURT

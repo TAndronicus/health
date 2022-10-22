@@ -3,6 +3,8 @@ import csv
 from domain.diet import Diet
 from domain.food import AbridgedFood, Food
 from domain.meal import Meal
+from domain.nutrient_checker import NutrientChecker
+from domain.nutrient_limits import NutrientLimits
 from domain.nutritient import Nutrient
 from domain.page import Page
 
@@ -13,6 +15,7 @@ PAGE_SIZE = 50
 FOOD_CSV = 'data/food.csv'
 FOOD_NUTRIENT_CSV = 'data/food_nutrient.csv'
 NUTRIENT_CSV = 'data/nutrient.csv'
+NUTRIENT_LIMITS_CSV = 'data/nutrient_limits.csv'
 
 FOOD_ID = 0
 FOOD_SOURCE = 1
@@ -25,6 +28,10 @@ FOOD_NUTRIENT_AMOUNT = 3
 NUTRIENT_ID = 0
 NUTRIENT_NAME = 1
 NUTRIENT_UNIT = 2
+
+NUTRIENT_LIMIT_ID = 0
+NUTRIENT_LIMIT_LO = 3
+NUTRIENT_LIMIT_HI = 4
 
 
 class Source:
@@ -132,3 +139,14 @@ def get_foods(id_amount_dict, name='Default'):
 
 def get_meals(meals):
     return Diet([get_foods(ingredients, name) for meal in meals for name, ingredients in meal.items()])
+
+
+def load_nutrient_checker(file_name=None):
+    nutrient_limits_list = []
+    nutrient_limits_file = file_name if file_name is not None else NUTRIENT_LIMITS_CSV
+    with open(nutrient_limits_file) as file:
+        next(file)
+        for nutrient_limits in csv.reader(file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True):
+            nutrient_limits_list.append(NutrientLimits(int(nutrient_limits[NUTRIENT_LIMIT_ID]), float(nutrient_limits[NUTRIENT_LIMIT_LO]),
+                                                       float(nutrient_limits[NUTRIENT_LIMIT_HI])))
+    return NutrientChecker(nutrient_limits_list)
