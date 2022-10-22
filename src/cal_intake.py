@@ -1,14 +1,19 @@
 WEIGHT = 70
-BODY_FAT_PERCENTAGE = 15
+BODY_FAT_PERCENTAGE = 10
 ACTIVITY = 4
 PHASE = 'bulking'
 
+CARBS_KCAL = 4
+FATS_KCAL = 9
+MIN_FAT_RATIO = .15
+MAX_FAT_RATIO = .3
 
-def printMeasurement(meas, value):
+
+def print_measurement(meas, value):
     print(f'{meas}: {round(value)}')
 
 
-def translateActivity(activity):
+def translate_activity(activity):
     if activity == 1:
         print('Sedentary (Little to no exercise in a week)')
         return 1.1
@@ -28,7 +33,7 @@ def translateActivity(activity):
         raise Exception('Improper activity')
 
 
-def translatePhase(phase):
+def translate_phase(phase):
     if phase == 'cutting':
         return 0.8
     elif phase == 'bulking':
@@ -37,12 +42,15 @@ def translatePhase(phase):
         raise Exception('Improper phase')
 
 
-activity, phase = translateActivity(ACTIVITY), translatePhase(PHASE)
+activity, phase = translate_activity(ACTIVITY), translate_phase(PHASE)
 lbm = (1 - BODY_FAT_PERCENTAGE / 100) * WEIGHT
-printMeasurement('Lean body weight', lbm)
+print_measurement('Lean body weight', lbm)
 bmr = 370 + 21.6 * lbm
-printMeasurement('Basal metabolic rate', bmr)
+print_measurement('Basal metabolic rate', bmr)
 tdee = bmr * activity
-printMeasurement('Total daily energy expenditure', tdee)
-goalIntake = tdee * phase
-printMeasurement('Goal caloric intake', goalIntake)
+print_measurement('Total daily energy expenditure', tdee)
+goal_intake = tdee * phase
+print_measurement('Goal caloric intake during ' + PHASE, goal_intake)
+min_fat, max_fat = MIN_FAT_RATIO * goal_intake / FATS_KCAL, MAX_FAT_RATIO * goal_intake / FATS_KCAL
+min_carb, max_carb = (1 - MAX_FAT_RATIO) * goal_intake / CARBS_KCAL, (1 - MIN_FAT_RATIO) * goal_intake / CARBS_KCAL
+print(f'Carbs: [{round(min_carb)} - {round(max_carb)}]g, fats: [{round(min_fat)} - {round(max_fat)}]g')
