@@ -4,7 +4,7 @@ from constants.fdc_constants import Meals, Foods, Amounts, is_probiotic
 from fdc_repo import get_meals, get_food, search_foods, load_nutrient_checker, Source
 
 NUTRIENT_CHECKER = load_nutrient_checker()
-OMEGA_3_TO_OMEGA_6_LO = 1
+OMEGA_3_TO_OMEGA_6_LO = .25
 
 
 def print_meals(meals):
@@ -35,11 +35,13 @@ def print_food(food_id):
         print(f'Omega-3 to omega-6 ratio: {round(omega_3 / omega_6, 2) if omega_6 != 0 else 1000}')
 
 
-print(search_foods('kefir', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=1))
-print_food(170904)
+print(search_foods('mackerel', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=1))
+print_food(168149)
 
 meals = [
-    Meals.OATMEAL
+    Meals.OATMEAL,
+    Meals.DOSA,
+    Meals.BREAD_WITH_CHEESE_AND_FLAX_OIL
 ]
 additional_meal = {
     'Meal': {
@@ -54,4 +56,4 @@ additional_meal = {
     }
 }
 meals.append(additional_meal)
-print_meals(meals)
+# print_meals(meals)
