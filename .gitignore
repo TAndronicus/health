@@ -1,3 +1,5 @@
 .idea
 src/key.txt
-data
+src/data/food.csv
+src/data/food_nutrient.csv
+src/data/nutrient.csv
