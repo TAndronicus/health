@@ -6,10 +6,12 @@ class Foods:
     BREAD_SUNFLOWER = 1100825
     BREAD_WHEAT = 172686  # No aminoacids
     BUCKWHEAT = 170685
+    CORN_FLAKES = 174648
     FLOUR_CORN = 169696
     FLOUR_POTATO = 168446
     FLOUR_SOY = 174273
     FLOUR_WHEAT = 168896
+    KALE = 168421
     MILLET = 169702
     OATS = 173904
     PASTA = 168927
@@ -87,6 +89,7 @@ class Foods:
     RAISIN = 168165
     WALNUT = 170186
     # Herbs
+    BASIL = 172232
     CHIVES = 1103349
     LOVAGE = 1034291
     PARSLEY = 170416
@@ -150,6 +153,16 @@ class Amounts:
 
 
 class Meals:
+    OATMEAL = {
+        'Oatmeal': {
+            Foods.OATS: 50,
+            Foods.CORN_FLAKES: 25,
+            Foods.BUTTERMILK: 100,
+            Foods.PEANUT: 25,
+            Foods.FLAXSEED: Amounts.TEASPOON,
+            Foods.CINNAMON: .25 * Amounts.TEASPOON
+        }
+    }
     BREAD_WITH_CHEESE_AND_FLAX_OIL = {
         'Bread with cheese and flax oil': {
             Foods.BREAD_SUNFLOWER: 100,
@@ -158,14 +171,13 @@ class Meals:
             Foods.FLAX_OIL: 10
         }
     }
-    LOTUS = {
-        'Lotus': {
-            Foods.LOTUS: 8
-        }
-    }
-    LADY_FINGERS = {
-        'Lady finger': {
-            Foods.LADY_FINGERS: 6
+    OMELET = {
+        'Omelet': {
+            Foods.EGG: 2 * Amounts.EGG_L,
+            Foods.BUTTER: .5 * Amounts.TEASPOON,
+            Foods.PEPPER_SWEET_RED: 50,
+            Foods.TOMATO: 50,
+            Foods.BASIL: Amounts.TEASPOON
         }
     }
     DUMPLINGS_NO_FILLING = {
@@ -177,15 +189,6 @@ class Meals:
             Foods.SUGAR: .5 * Amounts.TABLESPOON,
             Foods.CREAM_FATTY: .5 * Amounts.TABLESPOON,
             Foods.CINNAMON: .25 * Amounts.TEASPOON
-        }
-    }
-    OATMEAL = {
-        'Oatmeal': {
-            Foods.OATS: 4 * Amounts.TABLESPOON,
-            Foods.MILK: 170,
-            Foods.STRAWBERRIES_FROZEN: 25,
-            Foods.XYLITOL: Amounts.TEASPOON,
-            Foods.CHOCOLATE_DARK: Amounts.CHOCOLATE_PIECE
         }
     }
     DOSA = {
@@ -201,14 +204,5 @@ class Meals:
             Foods.LOVAGE: .5 * Amounts.TEASPOON,
             Foods.CANOLA_OIL: 1.5 * Amounts.TABLESPOON,
             Foods.CURRY: .5 * Amounts.TEASPOON
-        }
-    }
-    OMELET = {
-        'Omelet': {
-            Foods.ASPARAGUS: 25,
-            Foods.EGG: Amounts.EGG_L,
-            Foods.TOFU: 40,
-            Foods.BUTTER: .5 * Amounts.TEASPOON,
-            Foods.SUNFLOWER_OIL: Amounts.TEASPOON
         }
     }

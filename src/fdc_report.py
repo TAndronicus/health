@@ -1,6 +1,6 @@
 from termcolor import colored
 
-from constants.fdc_constants import Meals, Foods, Amounts, is_probiotic
+from constants.fdc_constants import Meals, is_probiotic
 from fdc_repo import get_meals, get_food, search_foods, load_nutrient_checker, Source
 
 NUTRIENT_CHECKER = load_nutrient_checker()
@@ -35,25 +35,11 @@ def print_food(food_id):
         print(f'Omega-3 to omega-6 ratio: {round(omega_3 / omega_6, 2) if omega_6 != 0 else 1000}')
 
 
-print(search_foods('mackerel', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=1))
-# print_food(168149)
+print(search_foods('kale', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=1))
+print_food(168421)
 
 meals = [
     Meals.OATMEAL,
-    Meals.DOSA,
     Meals.BREAD_WITH_CHEESE_AND_FLAX_OIL
 ]
-additional_meal = {
-    'Meal': {
-        Foods.COTTAGE_CHEESE_DRY: 125,
-        Foods.FLOUR_WHEAT: Amounts.TABLESPOON,
-        Foods.FLOUR_POTATO: .5 * Amounts.TABLESPOON,
-        Foods.TOMATO_CANNED: 3 * Amounts.TABLESPOON,
-        Foods.BUTTER: .5 * Amounts.TEASPOON,
-        Foods.BREAD_RYE: 67,
-        Foods.CHIVES: 20,
-        Foods.KIMCHI: 20
-    }
-}
-meals.append(additional_meal)
 print_meals(meals)
