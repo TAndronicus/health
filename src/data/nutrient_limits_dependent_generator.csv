@@ -10,3 +10,4 @@
 "1221","Histidine","G","0.016","1003","Protein","bounded"
 "1257","Fatty acids, total trans","G","0.001","1008","Energy","lower-tail"
 "1258","Fatty acids, total saturated","G","0.008","1008","Energy","lower-tail"
+"2033","Total dietary fiber (AOAC 2011.25)","G","0.014","1008","Energy","bounded"
