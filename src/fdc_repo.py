@@ -1,21 +1,26 @@
 import csv
+import os
 
 from domain.diet import Diet
 from domain.food import AbridgedFood, Food
 from domain.meal import Meal
 from domain.nutrient_checker import NutrientChecker
-from domain.nutrient_limits import NutrientLimits
 from domain.nutritient import Nutrient
 from domain.page import Page
+from domain.simple_nutrient_limits import SimpleNutrientLimits
 
 # Source: https://www.kaggle.com/datasets/stoicstatic/fooddata-central-nutrition-and-component-data
 
 PAGE_SIZE = 50
 
+# db files
 FOOD_CSV = 'data/food.csv'
 FOOD_NUTRIENT_CSV = 'data/food_nutrient.csv'
 NUTRIENT_CSV = 'data/nutrient.csv'
+# limits files
 NUTRIENT_LIMITS_CSV = 'data/nutrient_limits.csv'
+NUTRIENT_LIMITS_DEPENDENT_GENERATOR_CSV = 'data/nutrient_limits_dependent_generator.csv'
+NUTRIENT_LIMITS_GENERATED_CSV = 'data/nutrient_limits_generated.csv'
 
 FOOD_ID = 0
 FOOD_SOURCE = 1
@@ -32,6 +37,17 @@ NUTRIENT_UNIT = 2
 NUTRIENT_LIMIT_ID = 0
 NUTRIENT_LIMIT_LO = 3
 NUTRIENT_LIMIT_HI = 4
+
+DEPENDENT_NUTRIENT_LIMIT_ID = 0
+DEPENDENT_NUTRIENT_LIMIT_NAME = 1
+DEPENDENT_NUTRIENT_LIMIT_UNIT = 2
+DEPENDENT_NUTRIENT_LIMIT_MULTIPLIER = 3
+DEPENDENT_NUTRIENT_LIMIT_PARENT_ID = 4
+DEPENDENT_NUTRIENT_LIMIT_DISTRIBUTION = 6
+
+DISTRIBUTION_LOWER_TAIL = 'lower-tail'
+DISTRIBUTION_BOUNDED = 'bounded'
+DISTRIBUTION_UPPER_TAIL = 'upper-tail'
 
 
 class Source:
@@ -141,12 +157,68 @@ def get_meals(meals):
     return Diet([get_foods(ingredients, name) for meal in meals for name, ingredients in meal.items()])
 
 
+def create_nutrient_file(file_name):
+    if os.path.isfile(file_name):
+        os.remove(file_name)
+    open(file_name, 'w').close()
+
+
+def propagate_limits(file_name, nutrient_limits_generated):
+    with open(nutrient_limits_generated, 'a') as dest:
+        with open(file_name, 'r') as src:
+            next(src)
+            for line in src:
+                dest.write(line)
+        dest.write('\n')
+
+
+def load_base_nutrient_checker(nutrient_limits_generated):
+    nutrient_limits_list = []
+    with open(nutrient_limits_generated, 'r') as file:
+        for line in csv.reader(file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True):
+            if ',' not in line[NUTRIENT_LIMIT_ID]:
+                nutrient_limits_list.append(
+                    SimpleNutrientLimits(int(line[NUTRIENT_LIMIT_ID]), float(line[NUTRIENT_LIMIT_LO]), float(line[NUTRIENT_LIMIT_HI]))
+                )
+    return NutrientChecker(nutrient_limits_list)
+
+
+def propagate_limits_dependent_generator(file_name, nutrient_limits_generated, base_nutrient_checker):
+    with open(nutrient_limits_generated, 'a') as dest:
+        writer = csv.writer(dest, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL)
+        with open(file_name, 'r') as src:
+            next(src)
+            for line in csv.reader(src, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True):
+                parent_nutrient = base_nutrient_checker.get_simple_limits_by_id(int(line[DEPENDENT_NUTRIENT_LIMIT_PARENT_ID]))
+                multiplier = float(line[DEPENDENT_NUTRIENT_LIMIT_MULTIPLIER])
+                writer.writerow([
+                    line[DEPENDENT_NUTRIENT_LIMIT_ID],
+                    line[DEPENDENT_NUTRIENT_LIMIT_NAME],
+                    line[DEPENDENT_NUTRIENT_LIMIT_UNIT],
+                    [round(parent_nutrient.lo * multiplier, 3), 0][line[DEPENDENT_NUTRIENT_LIMIT_DISTRIBUTION] == DISTRIBUTION_LOWER_TAIL],
+                    [round(parent_nutrient.hi * multiplier, 3), 0][line[DEPENDENT_NUTRIENT_LIMIT_DISTRIBUTION] == DISTRIBUTION_UPPER_TAIL]
+                ])
+        dest.write('\n')
+
+
+def propagate_nutrient_file(
+        nutrient_limits_generated=NUTRIENT_LIMITS_GENERATED_CSV,
+        nutrient_limits=NUTRIENT_LIMITS_CSV,
+        nutrient_limits_dependent_generator=NUTRIENT_LIMITS_DEPENDENT_GENERATOR_CSV
+):
+    create_nutrient_file(nutrient_limits_generated)
+    propagate_limits(nutrient_limits, nutrient_limits_generated)
+    base_nutrient_checker = load_base_nutrient_checker(nutrient_limits_generated)
+    propagate_limits_dependent_generator(nutrient_limits_dependent_generator, nutrient_limits_generated, base_nutrient_checker)
+
+
 def load_nutrient_checker(file_name=None):
+    propagate_nutrient_file()
     nutrient_limits_list = []
     nutrient_limits_file = file_name if file_name is not None else NUTRIENT_LIMITS_CSV
     with open(nutrient_limits_file) as file:
         next(file)
         for nutrient_limits in csv.reader(file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True):
-            nutrient_limits_list.append(NutrientLimits(int(nutrient_limits[NUTRIENT_LIMIT_ID]), float(nutrient_limits[NUTRIENT_LIMIT_LO]),
-                                                       float(nutrient_limits[NUTRIENT_LIMIT_HI])))
+            nutrient_limits_list.append(SimpleNutrientLimits(int(nutrient_limits[NUTRIENT_LIMIT_ID]), float(nutrient_limits[NUTRIENT_LIMIT_LO]),
+                                                             float(nutrient_limits[NUTRIENT_LIMIT_HI])))
     return NutrientChecker(nutrient_limits_list)

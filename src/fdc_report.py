@@ -36,7 +36,7 @@ def print_food(food_id):
 
 
 print(search_foods('mackerel', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=1))
-print_food(168149)
+# print_food(168149)
 
 meals = [
     Meals.OATMEAL,
@@ -56,4 +56,4 @@ additional_meal = {
     }
 }
 meals.append(additional_meal)
-# print_meals(meals)
+print_meals(meals)
