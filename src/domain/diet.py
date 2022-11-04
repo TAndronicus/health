@@ -1,6 +1,3 @@
-from termcolor import colored
-
-
 class Diet:
     def __init__(self, meals):
         self.meals = meals
@@ -21,7 +18,7 @@ class Diet:
 
     def print_nutrients(self, nutrient_checker=None):
         if nutrient_checker is not None:
-            self.print_nutrients_with_checker(nutrient_checker)
+            nutrient_checker.print_report(sorted(self.get_nutrients().items()))
         else:
             self.print_nutrients_raw()
 
@@ -29,18 +26,6 @@ class Diet:
         print('Nutrients:')
         for nutrient, amount in sorted(self.get_nutrients().items()):
             print(f'{nutrient.name} - {round(amount, 2)} {nutrient.unit}')
-
-    def print_nutrients_with_checker(self, nutrient_checker):
-        print('Nutrients:')
-        for nutrient, amount in sorted(self.get_nutrients().items()):
-            nutrient_limits = nutrient_checker.get_limits(nutrient)
-            if nutrient_limits is None:
-                print(f'{nutrient.name} - {round(amount, 2)} {nutrient.unit}')
-            else:
-                if nutrient_limits.lo <= amount <= nutrient_limits.hi:
-                    print(colored(f'{nutrient.name} - {round(amount, 2)} {nutrient.unit} [{nutrient_limits.lo} - {nutrient_limits.hi}]', 'green'))
-                else:
-                    print(colored(f'{nutrient.name} - {round(amount, 2)} {nutrient.unit} [{nutrient_limits.lo} - {nutrient_limits.hi}]', 'red'))
 
     def calculate_omega_3_omega_6(self):
         omega_3, omega_6 = 0, 0

@@ -1,4 +1,4 @@
-class NutrientLimits:
+class SimpleNutrientLimits:
 
     def __init__(self, id, lo, hi):
         self.id = id
