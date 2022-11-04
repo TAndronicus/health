@@ -199,7 +199,7 @@ def propagate_limits_dependent_generator(file_name, nutrient_limits_generated, b
                     line[DEPENDENT_NUTRIENT_LIMIT_NAME],
                     line[DEPENDENT_NUTRIENT_LIMIT_UNIT],
                     [round(parent_nutrient.lo * multiplier, 3), 0][line[DEPENDENT_NUTRIENT_LIMIT_DISTRIBUTION] == DISTRIBUTION_LOWER_TAIL],
-                    [round(parent_nutrient.hi * multiplier, 3), 0][line[DEPENDENT_NUTRIENT_LIMIT_DISTRIBUTION] == DISTRIBUTION_UPPER_TAIL]
+                    [round(parent_nutrient.hi * multiplier, 3), 10000][line[DEPENDENT_NUTRIENT_LIMIT_DISTRIBUTION] == DISTRIBUTION_UPPER_TAIL]
                 ])
 
 
