@@ -1,6 +1,7 @@
 import csv
 import os
 
+from domain.compound_nutrient_limits import CompoundNutrientLimits
 from domain.diet import Diet
 from domain.food import AbridgedFood, Food
 from domain.meal import Meal
@@ -35,6 +36,8 @@ NUTRIENT_NAME = 1
 NUTRIENT_UNIT = 2
 
 NUTRIENT_LIMIT_ID = 0
+NUTRIENT_LIMIT_NAME = 1
+NUTRIENT_LIMIT_UNIT = 2
 NUTRIENT_LIMIT_LO = 3
 NUTRIENT_LIMIT_HI = 4
 
@@ -169,7 +172,6 @@ def propagate_limits(file_name, nutrient_limits_generated):
             next(src)
             for line in src:
                 dest.write(line)
-        dest.write('\n')
 
 
 def load_base_nutrient_checker(nutrient_limits_generated):
@@ -185,6 +187,7 @@ def load_base_nutrient_checker(nutrient_limits_generated):
 
 def propagate_limits_dependent_generator(file_name, nutrient_limits_generated, base_nutrient_checker):
     with open(nutrient_limits_generated, 'a') as dest:
+        dest.write('\n')
         writer = csv.writer(dest, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL)
         with open(file_name, 'r') as src:
             next(src)
@@ -198,27 +201,39 @@ def propagate_limits_dependent_generator(file_name, nutrient_limits_generated, b
                     [round(parent_nutrient.lo * multiplier, 3), 0][line[DEPENDENT_NUTRIENT_LIMIT_DISTRIBUTION] == DISTRIBUTION_LOWER_TAIL],
                     [round(parent_nutrient.hi * multiplier, 3), 0][line[DEPENDENT_NUTRIENT_LIMIT_DISTRIBUTION] == DISTRIBUTION_UPPER_TAIL]
                 ])
-        dest.write('\n')
 
 
-def propagate_nutrient_file(
-        nutrient_limits_generated=NUTRIENT_LIMITS_GENERATED_CSV,
-        nutrient_limits=NUTRIENT_LIMITS_CSV,
-        nutrient_limits_dependent_generator=NUTRIENT_LIMITS_DEPENDENT_GENERATOR_CSV
-):
+def propagate_nutrient_file(nutrient_limits_generated, nutrient_limits, nutrient_limits_dependent_generator):
     create_nutrient_file(nutrient_limits_generated)
     propagate_limits(nutrient_limits, nutrient_limits_generated)
     base_nutrient_checker = load_base_nutrient_checker(nutrient_limits_generated)
     propagate_limits_dependent_generator(nutrient_limits_dependent_generator, nutrient_limits_generated, base_nutrient_checker)
 
 
-def load_nutrient_checker(file_name=None):
-    propagate_nutrient_file()
-    nutrient_limits_list = []
-    nutrient_limits_file = file_name if file_name is not None else NUTRIENT_LIMITS_CSV
-    with open(nutrient_limits_file) as file:
-        next(file)
+def load_nutrient_checker(
+        nutrient_limits_generated=NUTRIENT_LIMITS_GENERATED_CSV,
+        nutrient_limits=NUTRIENT_LIMITS_CSV,
+        nutrient_limits_dependent_generator=NUTRIENT_LIMITS_DEPENDENT_GENERATOR_CSV,
+        remove_generated_files=True
+):
+    propagate_nutrient_file(nutrient_limits_generated, nutrient_limits, nutrient_limits_dependent_generator)
+    simple_nutrient_limits_list, compound_nutrient_limits_list = [], []
+    with open(nutrient_limits_generated) as file:
         for nutrient_limits in csv.reader(file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True):
-            nutrient_limits_list.append(SimpleNutrientLimits(int(nutrient_limits[NUTRIENT_LIMIT_ID]), float(nutrient_limits[NUTRIENT_LIMIT_LO]),
-                                                             float(nutrient_limits[NUTRIENT_LIMIT_HI])))
-    return NutrientChecker(nutrient_limits_list)
+            if "," in nutrient_limits[NUTRIENT_LIMIT_ID]:
+                compound_nutrient_limits_list.append(CompoundNutrientLimits(
+                    [int(id_str) for id_str in nutrient_limits[NUTRIENT_LIMIT_ID].split(",")],
+                    nutrient_limits[NUTRIENT_LIMIT_NAME],
+                    nutrient_limits[NUTRIENT_LIMIT_UNIT],
+                    float(nutrient_limits[NUTRIENT_LIMIT_LO]),
+                    float(nutrient_limits[NUTRIENT_LIMIT_HI])
+                ))
+            else:
+                simple_nutrient_limits_list.append(SimpleNutrientLimits(
+                    int(nutrient_limits[NUTRIENT_LIMIT_ID]),
+                    float(nutrient_limits[NUTRIENT_LIMIT_LO]),
+                    float(nutrient_limits[NUTRIENT_LIMIT_HI])
+                ))
+    if remove_generated_files:
+        os.remove(nutrient_limits_generated)
+    return NutrientChecker(simple_nutrient_limits_list, compound_nutrient_limits_list)

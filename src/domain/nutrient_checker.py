@@ -25,11 +25,11 @@ class NutrientChecker:
                 yield compound_nutrient_limit
 
     @staticmethod
-    def print_report_row(nutrient_limits, nutrient, amount):
+    def print_report_row(nutrient_limits, name, unit, amount):
         if nutrient_limits.lo <= amount <= nutrient_limits.hi:
-            print(colored(f'{nutrient.name} - {round(amount, 2)} {nutrient.unit} [{nutrient_limits.lo} - {nutrient_limits.hi}]', 'green'))
+            print(colored(f'{name} - {round(amount, 2)} {unit} [{nutrient_limits.lo} - {nutrient_limits.hi}]', 'green'))
         else:
-            print(colored(f'{nutrient.name} - {round(amount, 2)} {nutrient.unit} [{nutrient_limits.lo} - {nutrient_limits.hi}]', 'red'))
+            print(colored(f'{name} - {round(amount, 2)} {unit} [{nutrient_limits.lo} - {nutrient_limits.hi}]', 'red'))
 
     def print_report(self, nutrients):
         compound_nutrients = {}
@@ -38,11 +38,11 @@ class NutrientChecker:
             if nutrient_limits is None:
                 print(f'{nutrient.name} - {round(amount, 2)} {nutrient.unit}')
             else:
-                self.print_report_row(nutrient_limits, nutrient, amount)
+                self.print_report_row(nutrient_limits, nutrient.name, nutrient.unit, amount)
             for compound_limit in self.get_compound_limits(nutrient):
                 if compound_limit in compound_nutrients:
-                    compound_nutrients[compound_limit][1] += amount
+                    compound_nutrients[compound_limit] += amount
                 else:
-                    compound_nutrients[compound_limit] = [nutrient, amount]
-        for compound_limit, [nutrient, amount] in compound_nutrients.items():
-            self.print_report_row(compound_limit, nutrient, amount)
+                    compound_nutrients[compound_limit] = amount
+        for compound_limit, amount in compound_nutrients.items():
+            self.print_report_row(compound_limit, compound_limit.desc, compound_limit.unit, amount)
