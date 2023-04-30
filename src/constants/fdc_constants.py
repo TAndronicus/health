@@ -76,6 +76,7 @@ class Foods:
     TANGERINE = 169105
     WATERMELON = 167765
     # Nuts & dried fruits
+    APRICOTS = 173941
     BRAZIL_NUT = 170569
     CASHEW_NUT = 170162
     CHIA = 170554
@@ -117,6 +118,11 @@ class Foods:
     TOMATO_CANNED = 170051
     TOMATO_SAUCE = 170054
     YEAST = 167717
+    # Fish
+    HERRING = 173668
+    MACKEREL = 175119
+    SALMON = 175168
+    TROUT = 175154
     # Beverages
     COFFEE = 171890
     COFFEE_CHICORY = 174134
