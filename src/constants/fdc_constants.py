@@ -172,23 +172,104 @@ class Meals:
             Foods.CINNAMON: .25 * Amounts.TEASPOON
         }
     }
-    BREAD_WITH_CHEESE_AND_FLAX_OIL = {
-        'Bread with cheese and flax oil': {
-            Foods.BREAD_SUNFLOWER: 100,
-            Foods.COTTAGE_CHEESE_DRY: 50,
-            Foods.CHIVES: 20,
-            Foods.FLAX_OIL: 10
+    BREAD = {
+        'Bread': {
+            Foods.BREAD_MULTIGRAIN: 100
         }
     }
-    OMELET = {
-        'Omelet': {
+    CHEESE_AND_FLAX_OIL = {
+        'Bread with cheese and flax oil': {
+            Foods.COTTAGE_CHEESE_DRY: 100,
+            Foods.CHIVES: 20,
+            Foods.FLAX_OIL: 2 * Amounts.TABLESPOON
+        }
+    }
+    HUMUS = {
+        'Hummus': {
+            Foods.CHICKPEA_CANNED: 75,
+            Foods.CANOLA_OIL: .25 * Amounts.TABLESPOON
+        }
+    }
+    BEAN_PASTE = {
+        'Beam paste': {
+            Foods.BEAN_CANNED: 75,
+            Foods.CANOLA_OIL: .25 * Amounts.TABLESPOON
+        }
+    }
+    SCRAMBLED_EGGS = {
+        'Scrambled eggs': {
             Foods.EGG: 2 * Amounts.EGG_L,
-            Foods.BUTTER: .5 * Amounts.TEASPOON,
+            Foods.CANOLA_OIL: .5 * Amounts.TEASPOON,
             Foods.PEPPER_SWEET_RED: 50,
             Foods.TOMATO: 50,
-            Foods.BASIL: Amounts.TEASPOON
+            Foods.BASIL: Amounts.TEASPOON,
+            Foods.BREAD_MULTIGRAIN: 100,
+            Foods.ONION: 15
         }
     }
+    MACKEREL = {
+        'Mackerel': {
+            Foods.MACKEREL: 100,
+            Foods.BREAD_WHEAT: 100
+        }
+    }
+
+    PIZZA = {
+        'Dough': {
+            Foods.FLOUR_WHEAT: 150,
+            Foods.CANOLA_OIL: Amounts.TABLESPOON
+        },
+        'Toppings': {
+            Foods.OLIVE_OIL: Amounts.TABLESPOON,
+            Foods.TOMATO_SAUCE: 25,
+            Foods.MUSHROOM_BUTTON: 20,
+            Foods.ZUCCHINI: 20,
+            Foods.PEPPER_SWEET_RED: 20,
+            Foods.BROCCOLI: 20,
+            Foods.CHEESE_MOZZARELLA: 75
+        }
+    }
+    CHICKPEA_CUTLETS = {
+        'Chickpea cutlets': {
+            Foods.CHICKPEA_RAW: 75,
+            Foods.CARROT: 50,
+            Foods.CANOLA_OIL: Amounts.TABLESPOON,
+            Foods.PEPPER: .5 * Amounts.TEASPOON,
+            Foods.CURRY: .5 * Amounts.TEASPOON
+        }
+    }
+    BEETROOTS = {
+        'Beetroots': {
+            Foods.BEET: 150,
+            Foods.ONION: 10,
+            Foods.APPLE: 25
+        }
+    }
+    CARROTS_RAW = {
+        'Carrots raw': {
+            Foods.CARROT: 150,
+            Foods.APPLE: 50
+        }
+    }
+    CARROTS_BOILED = {
+        'Carrots boiled': {
+            Foods.CARROT: 150,
+            Foods.FLOUR_WHEAT: 10
+        }
+    }
+    MASHED_POTATOES = {
+        'Mashed potatoes': {
+            Foods.POTATO: 150,
+            Foods.YOGURT: 10
+        }
+    }
+    MASHED_SWEET_POTATOES = {
+        'Mashed sweet potatoes': {
+            Foods.POTATO_SWEET: 150,
+            Foods.YOGURT: 10
+        }
+    }
+
     DUMPLINGS_NO_FILLING = {
         'Dumplings, no filling': {
             Foods.COTTAGE_CHEESE_DRY: 125,
