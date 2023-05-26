@@ -27,6 +27,7 @@ class Foods:
     BUTTERMILK = 172225
     CHEESE_EDAM = 173419
     CHEESE_MOZZARELLA = 170845
+    COCONUT_MILK = 170172
     COTTAGE_CHEESE_DRY = 172182
     CREAM_FATTY = 1097888
     EGG = 748967
@@ -114,8 +115,10 @@ class Foods:
     SUGAR = 1103933
     XYLITOL = 392084
     # Other
+    MILK_POWDERED = 170877
     NUTRITIONAL_YEAST = 539654
     SEITAN = 168147
+    SOY_PROTEIN_ISOLATE = 174276
     TEMPEH = 174272
     TOFU = 172461
     TOMATO_CANNED = 170051
@@ -207,6 +210,15 @@ class Meals:
             Foods.ONION: 15
         }
     }
+    SHAKE = {
+        'Shake': {
+            Foods.COTTAGE_CHEESE_DRY: 100,
+            Foods.MILK: 100,
+            Foods.SOY_PROTEIN_ISOLATE: 10,
+            Foods.MILK_POWDERED: 10,
+            Foods.BANANA: 150
+        }
+    }
     MACKEREL = {
         'Mackerel': {
             Foods.MACKEREL: 100,
@@ -227,6 +239,16 @@ class Meals:
             Foods.PEPPER_SWEET_RED: 20,
             Foods.BROCCOLI: 20,
             Foods.CHEESE_MOZZARELLA: 75
+        }
+    }
+    CURRY = {
+        'Curry': {
+            Foods.CHICKPEA_RAW: 75,
+            Foods.CARROT: 25,
+            Foods.PEPPER_SWEET_RED: 25,
+            Foods.ZUCCHINI: 25,
+            Foods.ONION: 25,
+            Foods.COCONUT_MILK: 50
         }
     }
     CHICKPEA_CUTLETS = {

@@ -14,5 +14,5 @@ def print_food(food_id):
         print(f'Omega-3 to omega-6 ratio: {round(omega_3 / omega_6, 2) if omega_6 != 0 else 1000}')
 
 
-print(search_foods('paprika', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=1))
-print_food(Foods.PEPPER)
+print(search_foods('coconut milk', sources=[Source.FOUNDATION_FOOD, Source.SR_LEGACY_FOOD], page=1))
+print_food(170172)
